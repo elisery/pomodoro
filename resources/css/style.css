@@ -1,0 +1,110 @@
+/*Universal Styles*/
+html {
+  font-size: 16px;
+  font-family: "Calibri";
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background-color: forestgreen;
+}
+
+div {
+  border: 1px solid white;
+}
+
+/*Heading*/
+.heading {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+
+h1 {
+  color: #FFD7D7;
+  font-family: 'Pacifico', cursive;
+  font-size: 4rem;
+}
+
+h2 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 4rem;
+}
+
+h3 {
+  font-family: 'Krona One', sans-serif;
+  font-size: 3rem;
+}
+
+h4 {
+  font-family: 'Krona One', sans-serif;
+  font-size: 0.8rem;
+}
+
+p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 2rem;
+}
+
+/*Settings*/
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.settings {
+  display: flex;
+  justify-content: space-between;
+  width: 35%;
+  padding: 2rem;
+  color: white;
+}
+
+.label {
+  padding: 1rem;
+}
+
+.break-settings {
+}
+
+.session-settings {
+}
+
+/*Buttons*/
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+  font-size: 1.3rem;
+  color: white;
+}
+
+/*Main*/
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0rem;
+  color: white;
+  border: 2px solid #FF0000;
+  border-radius: 50%;
+  width: 370px;
+  height: 370px;
+}
+
+.timer-type {
+  margin: 5rem;
+}
+
+.time-left {
+  margin: 2rem;
+}

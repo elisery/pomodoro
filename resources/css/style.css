@@ -11,7 +11,7 @@ body {
 }
 
 div {
-  border: 1px solid white;
+  /*border: 1px solid white;*/
 }
 
 /*Heading*/
@@ -95,7 +95,7 @@ button {
   align-items: center;
   margin-top: 0rem;
   color: white;
-  border: 2px solid #FF0000;
+  border: 2px solid #A70000;
   border-radius: 50%;
   width: 370px;
   height: 370px;

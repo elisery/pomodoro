@@ -60,25 +60,50 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
       let val = $('.session-display').text();
       if (val > 1) {
         $('.session-display').text(decrement(val));
-        //CHECK IF BREAK TIME IS FALSE - SET MAIN DISPLAY 
+        //CHECK IF BREAK TIME IS FALSE - SET MAIN DISPLAY
       }
     }
   });
   //main session button click logic
+  //let n = 25;
+  let n = Number($('.session-display').text());
+  console.log('the n ' + n);
+  let tm;
+
+  function timer(){
+    tm = setInterval(countDown, 1000);
+  }
+
+  function countDown(){
+    n--;
+    if (n === 0){
+      clearInterval(tm);
+    }
+    console.log(n);
+    $('#main-time').text(n);
+  }
+
+  function stopCountDown() {
+    clearInterval(tm);
+  }
+
   $('#main-display').click(function() {
     /*
     1. if timerOn = false, flip to true
     2. if timerOn = true, start timer
     4. if timerOn = true, flip to false
-    5. if timerOn = flase, stop timer
+    5. if timerOn = false, stop timer  clearTimeout
     */
     if (timerOn === false) {
-      timerOn = true;
       //START TIMER - check if breakTime = true
       //ELSE START REGULAR TIMER
+      timerOn = true;
+      timer();
+
     } else {
-      timerOn = false;
       //STOP TIMER
+      stopCountDown();
+      timerOn = false;
     }
   })
 

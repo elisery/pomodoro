@@ -17,22 +17,35 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
   */
   let timerOn = false;
   let breakTime = false;
+  let sessionLength = 1500;
+  let breakLength = 300;
+  let seconds;
+  let minutes;
+
+  //set display for break time
+  $('.break-display').text(Math.floor(breakLength/60));
+  //set display for session time & main display
+  $('.session-display').text(Math.floor(sessionLength/60));
+  $('#main-time').text(Math.floor(sessionLength/60));
+
   //increment function
-  function increment(val) {
+  /*function increment(val) {
     return ++val;
   }
   //decrement function
   function decrement(val) {
     return --val;
-  }
-  //set main session display
-  let timeLeft = $('.session-display').text();
-  $('#main-time').text(timeLeft);
+  } */
+
+  //let timeLeft = $('.session-display').text();
+  //$('#main-time').text(timeLeft);
+
   //increment break time
   $('#break-plus').click(function() {
     if (timerOn === false) {
-      let val = $('.break-display').text();
-      $('.break-display').text(increment(val));
+      breakLength += 60;
+      //let val = $('.break-display').text();
+      $('.break-display').text(Math.floor(breakLength/60));
       //CHECK IF BREAK TIME IS TRUE - SET MAIN DISPLAY
     }
   });
@@ -41,7 +54,8 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
     if (timerOn === false) {
       let val = $('.break-display').text();
       if (val > 1) {
-        $('.break-display').text(decrement(val));
+        breakLength -= 60;
+        $('.break-display').text(Math.floor(breakLength/60));
         //CHECK IF BREAK TIME IS TRUE - SET MAIN DISPLAY
       }
     }
@@ -49,8 +63,10 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
   //increment session time
   $('#session-plus').click(function() {
     if (timerOn === false) {
-      let val = $('.session-display').text();
-      $('.session-display').text(increment(val));
+      sessionLength += 60;
+      //let val = $('.session-display').text();
+      $('.session-display').text(Math.floor(sessionLength/60));
+      $('#main-time').text(Math.floor(sessionLength/60));
       //CHECK IF BREAK TIME IS FALSE - SET MAIN DISPLAY
     }
   });
@@ -59,7 +75,9 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
     if (timerOn === false) {
       let val = $('.session-display').text();
       if (val > 1) {
-        $('.session-display').text(decrement(val));
+        sessionLength -= 60;
+        $('.session-display').text(Math.floor(sessionLength/60));
+        $('#main-time').text(Math.floor(sessionLength/60));
         //CHECK IF BREAK TIME IS FALSE - SET MAIN DISPLAY
       }
     }
@@ -67,20 +85,51 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
   //main session button click logic
   //let n = 25;
   let n = Number($('.session-display').text());
-  console.log('the n ' + n);
   let tm;
+  let breakTM;
 
+  //session timer
   function timer(){
     tm = setInterval(countDown, 1000);
   }
+  //break timer
+  function breakTimer() {
+    breakTM = setInterval(breakCountDown, 1000);
+  }
 
+  //countdown function for session timer
   function countDown(){
-    n--;
+    /*n--;
     if (n === 0){
       clearInterval(tm);
     }
     console.log(n);
-    $('#main-time').text(n);
+    $('#main-time').text(n);*/
+
+    minutes = Math.floor(sessionLength/60);
+    seconds = sessionLength - minutes * 60;
+    sessionLength--;
+
+    if (minutes === 0 && seconds === 0) {
+      //SET BREAKTIME FLAG is TRUE
+      alert("TAKE a Tomato BREAK!");
+      return;
+    }
+    //SET DISPLAY
+  }
+
+  //countdown function for break timer
+  function breakCountDown() {
+    minutes = Math.floor(breakLength/60);
+    seconds = breakLength - minutes * 60;
+    breakLength--;
+
+    if (minutes === 0 && seconds === 0) {
+      //SET BREAKTIME FLAG TO FALSE
+      alert("Back to work!");
+      return;
+    }
+    //SET MAIN DISPLAY
   }
 
   function stopCountDown() {

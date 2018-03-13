@@ -1,12 +1,6 @@
 $(document).ready(function() {
   /*
   settings buttons
-    1. plus button increments button display
-    2. minus button decrements button display
-    3. buttons don't work if timer is going
-  4. plus button increments time left
-  5. minus button decrements time left
-  6. clicking in session area starts/stops timer
   7. fill time left display with red #FF0000
   <svg width="100" height="100">
 <circle id="circle" cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="white" />
@@ -47,6 +41,9 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
       //let val = $('.break-display').text();
       $('.break-display').text(Math.floor(breakLength/60));
       //CHECK IF BREAK TIME IS TRUE - SET MAIN DISPLAY
+      if (breakTime === true) {
+        $('#main-time').text(Math.floor(breakLength/60));
+      }
     }
   });
   //decrement break time
@@ -57,6 +54,9 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
         breakLength -= 60;
         $('.break-display').text(Math.floor(breakLength/60));
         //CHECK IF BREAK TIME IS TRUE - SET MAIN DISPLAY
+        if (breakTime === true) {
+          $('#main-time').text(Math.floor(breakLength/60));
+        }
       }
     }
   });
@@ -66,8 +66,10 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
       sessionLength += 60;
       //let val = $('.session-display').text();
       $('.session-display').text(Math.floor(sessionLength/60));
-      $('#main-time').text(Math.floor(sessionLength/60));
       //CHECK IF BREAK TIME IS FALSE - SET MAIN DISPLAY
+      if (breakTime === false) {
+        $('#main-time').text(Math.floor(sessionLength/60));
+      }
     }
   });
   //decrement session time
@@ -79,6 +81,9 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
         $('.session-display').text(Math.floor(sessionLength/60));
         $('#main-time').text(Math.floor(sessionLength/60));
         //CHECK IF BREAK TIME IS FALSE - SET MAIN DISPLAY
+        if (breakTime === false) {
+          $('#main-time').text(Math.floor(sessionLength/60));
+        }
       }
     }
   });
@@ -112,10 +117,19 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
 
     if (minutes === 0 && seconds === 0) {
       //SET BREAKTIME FLAG is TRUE
+      breakTime = true;
       alert("TAKE a Tomato BREAK!");
       return;
     }
-    //SET DISPLAY
+    //SET MAIN DISPLAY
+    let secondsDisplay;
+    if (seconds < 10) {
+      secondsDisplay = '0' + seconds;
+    } else {
+      secondsDisplay = seconds;
+    }
+    let display = minutes + ':' + secondsDisplay;
+    $('#main-time').text(display);
   }
 
   //countdown function for break timer
@@ -126,14 +140,27 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
 
     if (minutes === 0 && seconds === 0) {
       //SET BREAKTIME FLAG TO FALSE
+      breakTime = false;
       alert("Back to work!");
       return;
     }
     //SET MAIN DISPLAY
+    let secondsDisplay;
+    if (seconds < 10) {
+      secondsDisplay = '0' + seconds;
+    } else {
+      secondsDisplay = seconds;
+    }
+    let display = minutes + ':' + secondsDisplay;
+    $('#main-time').text(display);
   }
 
   function stopCountDown() {
-    clearInterval(tm);
+    if (breakTime === false) {
+      clearInterval(tm);
+    } else {
+      clearInterval(breakTM);
+    }
   }
 
   $('#main-display').click(function() {

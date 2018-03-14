@@ -22,23 +22,13 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
   $('.session-display').text(Math.floor(sessionLength/60));
   $('#main-time').text(Math.floor(sessionLength/60));
 
-  //increment function
-  /*function increment(val) {
-    return ++val;
-  }
-  //decrement function
-  function decrement(val) {
-    return --val;
-  } */
-
-  //let timeLeft = $('.session-display').text();
-  //$('#main-time').text(timeLeft);
-
   //increment break time
   $('#break-plus').click(function() {
+    //reset break length
+    let val = $('.break-display').text();
+    breakLength = val * 60;
     if (timerOn === false) {
       breakLength += 60;
-      //let val = $('.break-display').text();
       $('.break-display').text(Math.floor(breakLength/60));
       //CHECK IF BREAK TIME IS TRUE - SET MAIN DISPLAY
       if (breakTime === true) {
@@ -48,8 +38,10 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
   });
   //decrement break time
   $('#break-minus').click(function() {
+    //reset break length
+    let val = $('.break-display').text();
+    breakLength = val * 60;
     if (timerOn === false) {
-      let val = $('.break-display').text();
       if (val > 1) {
         breakLength -= 60;
         $('.break-display').text(Math.floor(breakLength/60));
@@ -62,9 +54,11 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
   });
   //increment session time
   $('#session-plus').click(function() {
+    //reset session time
+    let val = $('.session-display').text();
+    sessionLength = val * 60;
     if (timerOn === false) {
       sessionLength += 60;
-      //let val = $('.session-display').text();
       $('.session-display').text(Math.floor(sessionLength/60));
       //CHECK IF BREAK TIME IS FALSE - SET MAIN DISPLAY
       if (breakTime === false) {
@@ -74,8 +68,10 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
   });
   //decrement session time
   $('#session-minus').click(function() {
+    //reset session time
+    let val = $('.session-display').text();
+    sessionLength = val * 60;
     if (timerOn === false) {
-      let val = $('.session-display').text();
       if (val > 1) {
         sessionLength -= 60;
         $('.session-display').text(Math.floor(sessionLength/60));
@@ -88,7 +84,6 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
     }
   });
   //main session button click logic
-  //let n = 25;
   let n = Number($('.session-display').text());
   let tm;
   let breakTM;
@@ -104,13 +99,6 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
 
   //countdown function for session timer
   function countDown(){
-    /*n--;
-    if (n === 0){
-      clearInterval(tm);
-    }
-    console.log(n);
-    $('#main-time').text(n);*/
-
     minutes = Math.floor(sessionLength/60);
     seconds = sessionLength - minutes * 60;
     sessionLength--;
@@ -118,7 +106,10 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
     if (minutes === 0 && seconds === 0) {
       //SET BREAKTIME FLAG is TRUE
       breakTime = true;
+      clearInterval(tm);
       alert("TAKE a Tomato BREAK!");
+      $('#main-time').text('00:00');
+      sessionLength = $('.session-display').text() * 60;
       return;
     }
     //SET MAIN DISPLAY
@@ -131,7 +122,6 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
     let display = minutes + ':' + secondsDisplay;
     $('#main-time').text(display);
   }
-
   //countdown function for break timer
   function breakCountDown() {
     minutes = Math.floor(breakLength/60);
@@ -141,7 +131,10 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
     if (minutes === 0 && seconds === 0) {
       //SET BREAKTIME FLAG TO FALSE
       breakTime = false;
+      clearInterval(breakTM);
       alert("Back to work!");
+      $('#main-time').text('00:00');
+      breakLength = $('.break-display').text() * 60;
       return;
     }
     //SET MAIN DISPLAY
@@ -173,14 +166,16 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
     if (timerOn === false) {
       //START TIMER - check if breakTime = true
       //ELSE START REGULAR TIMER
+      if (breakTime === false) {
+        timer();
+      } else  {
+        breakTimer();
+      }
       timerOn = true;
-      timer();
-
     } else {
       //STOP TIMER
       stopCountDown();
       timerOn = false;
     }
-  })
-
+  });
 });

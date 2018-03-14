@@ -6,8 +6,6 @@ $(document).ready(function() {
 <circle id="circle" cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="white" />
 </svg>
 $('#circle').animate({ svgFill: 'red' }, 4000);
-  8. main display shows break heading after session is done
-  9. main display shows break countdown after session is done
   */
   let timerOn = false;
   let breakTime = false;
@@ -15,6 +13,8 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
   let breakLength = 300;
   let seconds;
   let minutes;
+  let tm;
+  let breakTM;
 
   //set display for break time
   $('.break-display').text(Math.floor(breakLength/60));
@@ -83,11 +83,6 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
       }
     }
   });
-  //main session button click logic
-  let n = Number($('.session-display').text());
-  let tm;
-  let breakTM;
-
   //session timer
   function timer(){
     tm = setInterval(countDown, 1000);
@@ -104,12 +99,15 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
     sessionLength--;
 
     if (minutes === 0 && seconds === 0) {
-      //SET BREAKTIME FLAG is TRUE
+      //SET BREAKTIME FLAG if TRUE
       breakTime = true;
       clearInterval(tm);
       alert("TAKE a Tomato BREAK!");
       $('#main-time').text('00:00');
+      $('h3').text('Break');
+      //reset session length
       sessionLength = $('.session-display').text() * 60;
+      timerOn = false;
       return;
     }
     //SET MAIN DISPLAY
@@ -122,6 +120,7 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
     let display = minutes + ':' + secondsDisplay;
     $('#main-time').text(display);
   }
+  
   //countdown function for break timer
   function breakCountDown() {
     minutes = Math.floor(breakLength/60);
@@ -134,7 +133,10 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
       clearInterval(breakTM);
       alert("Back to work!");
       $('#main-time').text('00:00');
+      $('h3').text('Session');
+      //reset break length
       breakLength = $('.break-display').text() * 60;
+      timerOn = false;
       return;
     }
     //SET MAIN DISPLAY
@@ -157,12 +159,6 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
   }
 
   $('#main-display').click(function() {
-    /*
-    1. if timerOn = false, flip to true
-    2. if timerOn = true, start timer
-    4. if timerOn = true, flip to false
-    5. if timerOn = false, stop timer  clearTimeout
-    */
     if (timerOn === false) {
       //START TIMER - check if breakTime = true
       //ELSE START REGULAR TIMER

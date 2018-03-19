@@ -87,8 +87,8 @@ button {
   color: white;
   border: 2px solid #A70000;
   border-radius: 50%;
-  width: 40%;
-  height: 30%;
+  width: 35%;
+  height: 35%;
 }
 
 .timer-type {
@@ -96,5 +96,6 @@ button {
 }
 
 .time-left {
-  margin: 1.5rem;
+  margin-bottom: 4rem;
+  border-radius: 50%;
 }

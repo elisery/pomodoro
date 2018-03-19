@@ -1,12 +1,4 @@
 $(document).ready(function() {
-  /*
-  settings buttons
-  7. fill time left display with red #FF0000
-  <svg width="100" height="100">
-<circle id="circle" cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="white" />
-</svg>
-$('#circle').animate({ svgFill: 'red' }, 4000);
-  */
   let timerOn = false;
   let breakTime = false;
   let sessionLength = 1500;
@@ -75,7 +67,6 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
       if (val > 1) {
         sessionLength -= 60;
         $('.session-display').text(Math.floor(sessionLength/60));
-        $('#main-time').text(Math.floor(sessionLength/60));
         //CHECK IF BREAK TIME IS FALSE - SET MAIN DISPLAY
         if (breakTime === false) {
           $('#main-time').text(Math.floor(sessionLength/60));
@@ -91,7 +82,6 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
   function breakTimer() {
     breakTM = setInterval(breakCountDown, 1000);
   }
-
   //countdown function for session timer
   function countDown(){
     minutes = Math.floor(sessionLength/60);
@@ -105,9 +95,12 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
       alert("TAKE a Tomato BREAK!");
       $('#main-time').text('00:00');
       $('h3').text('Break');
-      //reset session length
+      //reset session length & background color
       sessionLength = $('.session-display').text() * 60;
       timerOn = false;
+      $('.main').css({'transition': '0s',
+                      'background-color': '#228B22',
+                });
       return;
     }
     //SET MAIN DISPLAY
@@ -119,14 +112,19 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
     }
     let display = minutes + ':' + secondsDisplay;
     $('#main-time').text(display);
+    //Set overlay
+    let val = $('.session-display').text() * 60;
+    let transString = 'all ' +  val + 's ' + 'ease';
+    $('.main').css({'transition': transString,
+                    'background-color': '#A70000',
+              });
   }
-  
+
   //countdown function for break timer
   function breakCountDown() {
     minutes = Math.floor(breakLength/60);
     seconds = breakLength - minutes * 60;
     breakLength--;
-
     if (minutes === 0 && seconds === 0) {
       //SET BREAKTIME FLAG TO FALSE
       breakTime = false;
@@ -134,9 +132,12 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
       alert("Back to work!");
       $('#main-time').text('00:00');
       $('h3').text('Session');
-      //reset break length
+      //reset break length & background color
       breakLength = $('.break-display').text() * 60;
       timerOn = false;
+      $('.main').css({'transition': '0s',
+                      'background-color': '#228B22',
+                });
       return;
     }
     //SET MAIN DISPLAY
@@ -148,6 +149,12 @@ $('#circle').animate({ svgFill: 'red' }, 4000);
     }
     let display = minutes + ':' + secondsDisplay;
     $('#main-time').text(display);
+    //Set overlay
+    let val = $('.break-display').text() * 60;
+    let transString = 'all ' +  val + 's ' + 'ease';
+    $('.main').css({'transition': transString,
+                    'background-color': '#00FF7F',
+              });
   }
 
   function stopCountDown() {

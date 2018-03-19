@@ -62,12 +62,6 @@ p {
   padding: 1rem;
 }
 
-.break-settings {
-}
-
-.session-settings {
-}
-
 /*Buttons*/
 .buttons {
   display: flex;
@@ -95,6 +89,10 @@ button {
   border-radius: 50%;
   width: 370px;
   height: 370px;
+}
+
+#main-display {
+  border-radius: 50%;
 }
 
 .timer-type {

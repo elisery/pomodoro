@@ -87,14 +87,13 @@ button {
   color: white;
   border: 2px solid #A70000;
   border-radius: 50%;
-  width: 35%;
-  height: 50%;
-  padding: 0.5rem;
+  width: 40%;
+  height: 30%;
 }
 
-#main-display {
+/*#main-display {
   border-radius: 50%;
-}
+}*/
 
 .timer-type {
   margin: 5rem;

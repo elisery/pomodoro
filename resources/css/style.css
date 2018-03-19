@@ -91,14 +91,11 @@ button {
   height: 30%;
 }
 
-/*#main-display {
-  border-radius: 50%;
-}*/
-
 .timer-type {
-  margin: 5rem;
+  margin: 3rem;
 }
 
 .time-left {
-  margin: 2rem;
+  margin: 1.5rem;
+  border: 1px solid blue;
 }

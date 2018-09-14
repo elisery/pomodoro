@@ -1,4 +1,10 @@
+🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅
+
 # Pomodoro Clock
+
+🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅 🍅
+
+<img src="resources/images/timer.png" width="200" />
 
 This is a pomodoro clock web application. The purpose of the pomodoro clock is 
 to increase productivity by having set work and break intervals. 
